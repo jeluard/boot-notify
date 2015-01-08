@@ -13,7 +13,7 @@ Add `boot-notify` to your `build.boot` dependencies and `require` the namespace:
 (require '[jeluard.boot-notify :refer :all])
 ```
 
-Use `(notify)` wherever you would use `watch`.
+Use `(notify)` wherever you would use `(speak)`.
 
 You can see the options available on the command line:
 
