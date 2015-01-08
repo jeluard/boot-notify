@@ -5,7 +5,9 @@
             [boot.core :as core]
             [boot.util :as util]))
 
-(defn- program-exists? [s] (= 0 (:exit (sh/sh "command" "-v" s))))
+(defn- program-exists?
+  [s]
+  (= 0 (:exit (sh/sh "sh" "-c" (format "command -v %s" s)))))
 
 (defprotocol Notifier
   (-supported? [this] "Check if this notifier is supported on current platform")
