@@ -51,22 +51,18 @@
   (let [title (or title "Boot notify")
         base-message {:title title :pid (or pid title)
                       :icon (or icon (boot-logo))}
-        messages (merge {:success "Success!" :warning "Got %s warnings during compilation" :failure "Failed to compile"} template)]
+        messages (merge {:success "Success!" :warning "%s warning/s" :failure "%s"} template)]
     (if-let [n (or notifier default-notifier)]
       (if (-supported? n)
-        (core/with-post-wrap
-          fileset
-          (try
-            (let [w @core/*warnings*]
-                 (if (zero? w)
-                   (when-let [s (:success messages)]
-                     (notify! n s base-message))
-                   (when-let [s (:warning messages)]
-                     (notify! n (format s w) base-message)))
-                 fileset)
-            (catch Throwable t
-              (when-let [s (:failure messages)]
-                (notify! n s base-message))
-              (throw t))))
+        (fn [next-task]
+          (fn [fileset]
+            (try
+              (util/with-let [_ (next-task fileset)]
+                (if (zero? @core/*warnings*)
+                  (notify! n (:success messages) base-message)
+                  (notify! n (format (:warning messages) @core/*warnings*) base-message)))
+              (catch Throwable t
+                (notify! n (format (:failure messages) (.getMessage t)) base-message)
+                (throw t)))))
         (util/warn (str "Notifier <" n "> is not supported on this platform.")))
       (util/warn "Failed to find a Notifier for this platform."))))
