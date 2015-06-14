@@ -36,7 +36,7 @@
 
 (defn boot-logo
   []
-  (let [d (core/temp-dir!)
+  (let [d (core/tmp-dir!)
         f (io/file d "logo.png")]
     (io/copy (io/input-stream (io/resource "boot-logo-3.png")) f)
     (.getAbsolutePath f)))
