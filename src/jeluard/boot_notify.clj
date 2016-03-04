@@ -43,11 +43,11 @@
 
 (core/deftask notify
   "Visible notifications during build."
-  [n notifier           sym       "Custom notifier. When not provided a platform specific notifier will be used."
+  [n notifier VAL       sym       "Custom notifier. When not provided a platform specific notifier will be used."
    m template FOO=BAR   {kw str}  "Templates overriding default messages. Keys can be :success, :warning or :failure."
-   t title              str       "Title of the notification"
-   i icon               str       "Full path of the file used as notification icon"
-   p pid                str       "Unique ID identifying this boot process"]
+   t title    VAL       str       "Title of the notification"
+   i icon     VAL       str       "Full path of the file used as notification icon"
+   p pid      VAL       str       "Unique ID identifying this boot process"]
   (let [title (or title "Boot notify")
         base-message {:title title :pid (or pid title)
                       :icon (or icon (boot-logo))}

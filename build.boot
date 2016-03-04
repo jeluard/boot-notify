@@ -2,16 +2,12 @@
  :source-paths #{"src"}
  :resource-paths #{"resources"}
  :dependencies '[[org.clojure/clojure "1.6.0"     :scope "provided"]
-                 [boot/core           "2.1.2"     :scope "provided"]
-                 [adzerk/bootlaces    "0.1.10"    :scope "test"]])
+                 [adzerk/bootlaces    "0.1.13"    :scope "test"]])
 
 (require
- '[adzerk.bootlaces :refer :all]
- '[boot.pod         :as pod]
- '[boot.util        :as util]
- '[boot.core        :as core])
+ '[adzerk.bootlaces :refer :all])
 
-(def +version+ "0.2.0")
+(def +version+ "0.2.1")
 
 (bootlaces! +version+)
 

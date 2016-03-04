@@ -9,7 +9,7 @@ Relies on [terminal-notifier](https://github.com/alloy/terminal-notifier) on OSX
 Add `boot-notify` to your `build.boot` dependencies and `require` the namespace:
 
 ```clj
-(set-env! :dependencies '[[jeluard/boot-notify "0.2.0" :scope "test"]])
+(set-env! :dependencies '[[jeluard/boot-notify "0.2.1" :scope "test"]])
 (require '[jeluard.boot-notify :refer [notify]])
 ```
 
